@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V-bind</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>v-bind动态更新html上元素的属性</p>
+        <!-- class内表达式为真时，对应类名就会加载，当:class表达式过长或者逻辑复杂时，可以绑定一个计算属性 
+        当需要多个class时，可以使用数组语法，给:class绑定一个数据，应用一个class列表
+        -->
+        <div v-bind:class="{'active': isActive, 'error':isError}">ceshi</div>
+        <p v-bind:class="classes">class使用计算属性定义</p>
+        <p :class="[activeCls, errorCls]">class使用数据定义</p>
+        <p :class="[isActive? activeCls:'', errorCls]">class使用三元表达式确定</p>
+        <p :style="styles">绑定内联样式</p>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                isError: true,
+                error: null,
+                activeCls: 'active',
+                errorCls: 'error',
+                styles: {
+                    color: 'red',
+                    fontSize: 24 + 'px' // css要用驼峰命名方式书写
+                }
+            },
+            // 绑定计算属性v-bind
+            computed: {
+                classes: function () {
+                    return {
+                        active: this.isActive && !this.error, 'test-fail': this.error && this.error.type === 'fail'
+                    }
+                }
+            }
+        })
+        console.log(app.error.type)
+    </script>
+</body>
+
+</html>

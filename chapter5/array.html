@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V-bind</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <template v-for="book in books">
+                <li>书名：{{book.name}}</li>
+                <li>作者：{{book.author}}</li>
+            </template>
+        </ul>
+        <button v-on:click="addBook">添加一本书</button>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                books: [
+                    {
+                        name: '<<Vue.js实战>>',
+                        author: '梁灏'
+                    },
+                    {
+                        name: '<<JavaScript语言精粹>>',
+                        author: 'zhouyajun'
+                    },
+                    {
+                        name: '<<JavaScript高级程序设计>>',
+                        author: 'liaoying'
+                    }
+                ]
+            },
+            methods: {
+                addBook: function () {
+                    this.books.push({
+                        name: '<<CSS解密>>',
+                        author: '赵玉翠'
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

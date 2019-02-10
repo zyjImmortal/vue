@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="name" placeholder="你的名字">
+        <!-- 添加 一个过滤器，过滤器实现简单的数据变换，更复杂的应该使用计算属性-->
+        <h1>你好, {{date | formatDate}}</h1>
+        <!-- v-html 绑定的数据显示为html -->
+        <p v-html="linked">{{linked}}</p>
+        <div>
+            <!-- 使用表达式，根据vue实例提供的数据进行计算，但是不支持语句和流程控制，比如说赋值语句和if流程控制 -->
+            <a>{{number / 10}}</a>
+            <a>{{isOk? '确定':'取消'}}</a>
+            <a href="">{{text.split(',').reverse().join(',')}}</a>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        // <!-- 自定义一个对象存储数据 -->
+
+        var myData = {
+            a: 1
+        }
+
+        var padDate = function(value){
+            return value < 10 ? '0' + value : value;
+        }
+
+        var app = new Vue({
+            el: '#app',
+            /**  data : {
+                  name : ''
+              }*/
+            // data : myData
+            data: {
+                date: new Date(),
+                linked: '<a href="#">这是一个链接</a>',
+                number: 99,
+                isOk: true,
+                text: '123,456'
+            },
+            // 定义过滤器，{{ message | filter1 | filter2}}串联过滤器，
+            // {{message | filter{arg1, arg2}}}，过滤器接收参数，过滤器默认接收message为第一个参数，其他的给到第二个和第三个
+            filters: {
+                formatDate: function (value) {
+                    var date = new Date(value);
+                    var year = date.getFullYear();
+                    var mouth = padDate(date.getMonth() + 1); // date.getMonth() 从 Date 对象返回月份 (0 ~ 11)。
+                    var day = padDate(date.getDate()); // date.getDate() 从 Date 对象返回一个月中的某一天 (1 ~ 31)。
+                    var hour = padDate(date.getHours()); // 返回 Date 对象的小时 (0 ~ 23)
+                    var minutes = padDate(date.getMinutes()); // 返回 Date 对象的分钟 (0 ~ 59)。
+                    var seconds = padDate(date.getSeconds()); // 返回 Date 对象的秒数 (0 ~ 59)。
+                    return year + '-' + mouth + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+                }
+            },
+            mounted: function () {
+                var _this = this;
+                // 设置一个定时器，每隔一秒更新一次
+                this.timer = setInterval(function () {
+                    // 这是如果用this.date 来修改时间，页面上时间是不自动改变的？？？为啥
+                    _this.date = new Date();  // 显示的是浏览器的时间，没有经过格式化
+                }, 1000);
+            },
+            beforeDestory: function () {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+            }
+        })
+        console.log(app.date.getDate())
+        /**
+        console.log(app.a)
+        app.a = 3;
+        console.log(myData.a)*/
+
+    </script>
+</body>
+
+</html>

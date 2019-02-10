@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>计算属性可以完成各种复杂的的逻辑，包括运算、函数调用等，只要最终返回一个结果就行。
+            计算属性也可以依赖于vue实例的数据，只要数据发生变化，就会触发计算属性重新计算。
+            computed和methods可以实现相同的效果，但是计算属性具有缓存性质，只有当数据发生变化时才会再次渲染，
+            methods每次加载都会重新渲染，在处理大数据和做大量计算的时候，应计算属性会更好。
+        </p>
+        总价： {{ prices }}
+        <p>{{fullName}}</p>
+        <input type="text" name="" id="">
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                package1: [
+                    {
+                        name: 'iphone 7',
+                        price: 7199,
+                        count: 2
+                    },
+                    {
+                        name: 'ipad',
+                        price: 2888,
+                        count: 1
+                    }
+                ],
+                package2: [
+                    {
+                        name: 'apple',
+                        price: 3,
+                        count: 5
+                    },
+                    {
+                        name: 'banana',
+                        price: 2,
+                        count: 10
+                    }
+                ],
+                firstName: 'Jack',
+                lastName: 'Green'
+            },
+            // 定义计算属性
+            computed: {
+                prices: function () {
+                    var price = 0;
+                    for (var i = 0; i < this.package1.length; i++) {
+                        price += this.package1[i].price * this.package1[i].count;
+                    }
+                    for (var i = 0; i < this.package2.length; i++) {
+                        price += this.package2[i].price * this.package2[i].count;
+                    }
+                    return price;
+                },
+                fullName: function(){
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

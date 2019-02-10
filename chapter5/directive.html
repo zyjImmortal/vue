@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>内置指令</title>
+</head>
+
+<body>
+    <div id="app">
+        <template v-if="type==='name'">
+            <label for="">用户名：</label>
+            <!-- vue在渲染元素的时候，会尽可能的复用已有的元素而非重新渲染，
+                key="name-input“属性保证一个元素的唯一性，所以会被重新渲染 -->
+            <input type="text" placeholder="请输入用户名" key="name-input">
+        </template>
+        <template v-else>
+            <label for="">邮箱: </label>
+            <input type="text" placeholder="请输入邮箱" key="email-input">
+        </template>
+        <button v-on:click="handleToggleClick">切换输入类型</button>
+        <ul>
+            <li v-for='book in books'>{{book.name}}</li>
+            <li v-for='(book, index) in books'>{{index}}-{{book.name}}</li>
+        </ul>
+        <ul>
+            <!-- 遍历数组 -->
+            <template v-for='book in books'>
+                <li>{{book.name}}</li>
+                <li>{{book.author}}</li>
+            </template>
+        </ul>
+        <ul>
+            <!-- 遍历对象 -->
+            <li v-for="(value, key, index) in user">
+                {{index}}-{{key}}-{{value}}
+            </li>
+        </ul>
+        <!-- 迭代整数 -->
+        <span v-for='n in 10'>{{ n }}</span>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                type: 'name',
+                // 遍历数组
+                books: [
+                    {
+                        name: '<<Vue.js实战>>',
+                        author: '梁灏'
+                    },
+                    {
+                        name: '<<JavaScript语言精粹>>',
+                        author: 'zhouyajun'
+                    },
+                    {
+                        name: '<<JavaScript高级程序设计>>',
+                        author: 'liaoying'
+                    }
+                ],
+                // 遍历对象
+                user : {
+                    name: 'liaoying',
+                    age : 24,
+                    genger : '女'
+                }
+            },
+            methods: {
+                handleToggleClick: function () {
+                    this.type = this.type === 'name' ? 'email' : 'name'
+                }
+            }
+            
+        })
+    </script>
+</body>
+
+</html>

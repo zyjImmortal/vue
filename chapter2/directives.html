@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue指令</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--  -->
+        <p v-if='show'>显示这段文本</p>
+        <!-- v-on绑定时间监听， 包括：click、dblclick、 keyup、mousemove等-->
+        <button v-on:click="handleClose">{{text}}</button>
+        <!-- v-bind的基本用户是动态更新html元素上的属性，比如id、class、src、href等，当数据发生改变时，对应元素属性值自动更新 -->
+        <a v-bind:href="url">链接</a>
+        <a v-bind:href="imgUrl">图片链接</a>
+        <img v-bind:src="imgUrl" alt="">
+    </div>
+    <!-- <script src="https://unpkg.com/vue/dist/vue.min.js"></script> -->
+    <script src="../vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                show: false,
+                text: '显示文本',
+                url: 'https://www.giihub.com',
+                imgUrl: 'https://www.baidu.con'
+            },
+            methods: {
+                // v-on绑定的事件
+                handleClose: function () {
+                    this.close(); // 将处理逻辑单独封装到一个方法中
+                },
+                close: function () {
+                    this.show = !this.show;
+                    this.text = this.show ? '隐藏文本' : '显示文本';
+                }
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>
