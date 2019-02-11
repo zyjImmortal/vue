@@ -10,18 +10,52 @@
 
 <body>
     <div id="app">
-        <input type="text" v-model="text", placeholder="请输入">
-        <p>输入的内容：{{ text }}</p>
-        <input type="radio" name="" id="" v-bind:checked="picked" v-on:click="handleRario">
-        <label for="">单选按钮</label>
+        <input type="text" v-model="message" placeholder="请输入">
+        <p>输入的内容：{{ message }}</p>
+        <!-- <input type="radio" name="" id="" v-bind:checked="picked" v-on:click="handleRario">
+        <label for="">单选按钮</label> -->
+        <!-- 数据双向绑定， -->
+        <input type="radio" v-model="picked" value="html" id="html">
+        <label for="html">HTML</label>
+        <br>
+        <input type="radio" v-model="picked" value="js" id="js">
+        <label for="js">JavaScript</label>
+        <br>
+        <input type="radio" v-model="picked" value="css" id="css">
+        <label for="css">CSS</label>
+        <br>
+        <p>选择的项目是:{{picked}}</p>
+
+        <!-- 当input的value值在 绑定checked数组中，就会被选中，，选中和不选中会自动从数组中push和pop数据-->
+        <input type="checkbox" v-model="checked" value="html" id="html">
+        <label for="html">HTML</label>
+        <br>
+        <input type="checkbox" v-model="checked" value="js" id="js">
+        <label for="js">JavaScript</label>
+        <br>
+        <input type="checkbox" v-model="checked" value="css" id="css">
+        <label for="css">CSS</label>
+        <br>
+        <p>选择的项目是:{{checked}}</p>
+        <br>
+        <select v-model="selected">
+            <option value="html">html</option>
+            <option value="js">JavaScript</option>
+            <option value="css">css</option>
+        </select>
+        <br>
+        <p>选中的项是：{{selected}}</p>
     </div>
     <script src="../vue.js"></script>
     <script>
         var app = new Vue({
             el: '#app',
             data: {
-                text: '',
-                picked: true
+                message: '',
+               // picked: true
+               picked: 'js',
+               checked: ['html', 'js'],
+               selected: 'js'
             },
             methods: {
                 handleRario: function(){

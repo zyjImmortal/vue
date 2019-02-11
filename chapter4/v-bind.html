@@ -19,6 +19,8 @@
         <p :class="[activeCls, errorCls]">class使用数据定义</p>
         <p :class="[isActive? activeCls:'', errorCls]">class使用三元表达式确定</p>
         <p :style="styles">绑定内联样式</p>
+        <input type="text" v-model="message" placeholder="请输入...">
+        <p>输入内容：{{message}}</p>
     </div>
     <script src="../vue.js"></script>
     <script>
@@ -33,7 +35,8 @@
                 styles: {
                     color: 'red',
                     fontSize: 24 + 'px' // css要用驼峰命名方式书写
-                }
+                },
+                message: ''
             },
             // 绑定计算属性v-bind
             computed: {
@@ -44,7 +47,7 @@
                 }
             }
         })
-        console.log(app.error.type)
+        //console.log(app.error.type
     </script>
 </body>
 
