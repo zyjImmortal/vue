@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <child-component></child-component>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var child_component = {
+            template: '<div>这是嵌套的组件</div>',
+        }
+        Vue.component('my-component', {
+            template: '<div>这是全局注册的组件</div>',
+            components: {
+                'child_component':child_component
+            }
+        })
+        
+        var child = {
+            template: '<div>这是局部注册的组件</div>'
+        }
+        var app = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            // 注册一个局部组件
+            components: {
+                'child-component': child
+            }
+        })
+    </script>
+</body>
+
+</html>
