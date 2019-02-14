@@ -19,9 +19,14 @@
             template: '<div>这是嵌套的组件</div>',
         }
         Vue.component('my-component', {
-            template: '<div>这是全局注册的组件</div>',
+            template: '<div>{{message}}</div>',
             components: {
                 'child_component':child_component
+            },
+            data: function(){
+                return {
+                    message: '组件中使用data属性'
+                }
             }
         })
         

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V-bind</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>总数: {{total}}</p>
+        <!-- 父组件同v-on来监听 -->
+        <my-component @increase="handleGetTotal" @reduce="handleGetTotal"></my-component>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component('my-component', {
+            template: '\
+                <div>\
+                    <button @click="handleIncrease">+1</button>\
+                    <button @click="handleReduce">-1</button>\
+                </div>',
+            data: function(){
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                handleIncrease: function(){
+                    this.counter++;
+                    // 通过v-on实现子组件向父组件传递数据，increase和reduce是自定义的父组件属性
+                    // $emit第一个为父组件的自定义事件，第二个参数为向自定义事件传递的参数，可以传递多个
+                    // $emit触发自定义事件
+                    this.$emit('increase', this.counter);
+                },
+                handleReduce: function(){
+                    this.counter--;
+                    this.$emit('reduce', this.counter);
+                }
+            }
+        });
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0
+            },
+            methods: {
+                handleGetTotal: function(total){
+                    this.total = total;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
